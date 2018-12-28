@@ -13,10 +13,10 @@ namespace MvcPalautettavaSKe.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjektitEntities : DbContext
+    public partial class Projektit2Entities : DbContext
     {
-        public ProjektitEntities()
-            : base("name=ProjektitEntities")
+        public Projektit2Entities()
+            : base("name=Projektit2Entities")
         {
         }
     

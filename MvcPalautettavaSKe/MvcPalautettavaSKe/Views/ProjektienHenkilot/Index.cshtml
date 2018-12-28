@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MvcPalautettavaSKe.Models.Projektit>
+
+@{
+    ViewBag.Title = "Projektien henkilöt ja tunnit";
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".displayPersonHourDataLink").click(function () {
+                var projID = $(this).data("projektiid");
+
+                //alert("Klikattiin: " + projID);
+
+                var url = "GetPersonHoursData/" + projID;
+                $.getJSON(url, null, function (data) {
+
+                    var id = "#PersonDetailRow-" + projID;
+                    $(id).html(data.html);
+                    $(id).css("display", "block");
+                });
+
+                return false;
+            });
+        });
+        
+    </script>
+    }
+
+
+<h2>Projektin henkilöt ja tunnit</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Projekti-ID</th>
+            <th>Projektin nimi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MvcPalautettavaSKe.Models.Projektit projekti in Model)
+        {
+            <tr>
+                <td><a href="#" class="displayPersonHourDataLink" data-projektiid="@projekti.ProjektiId"><span class="glyphicon glyphicon-plus-sign"></span></a>@projekti.ProjektiId</td>
+                <td>@projekti.Nimi</td>
+            </tr>
+            <tr id="PersonDetailRow-@projekti.ProjektiId" style="display:none">
+            </tr>
+        }
+    </tbody>
+</table>
+

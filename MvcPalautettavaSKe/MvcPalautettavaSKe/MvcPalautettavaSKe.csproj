@@ -134,7 +134,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HenkiloidenProjektitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProjektienHenkilotController.cs" />
     <Compile Include="Controllers\ProjektihenkilotController.cs" />
     <Compile Include="Controllers\ProjektitController.cs" />
     <Compile Include="Controllers\TunnitController.cs" />
@@ -178,8 +180,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\ProjektitModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ProjektitModel.Context.cs</LastGenOutput>
       <DependentUpon>ProjektitModel.edmx</DependentUpon>
+      <LastGenOutput>ProjektitModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ProjektitModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -223,6 +225,8 @@
     <Content Include="Views\Projektihenkilot\Index.cshtml" />
     <Content Include="Views\Projektit\Index.cshtml" />
     <Content Include="Views\Tunnit\Index.cshtml" />
+    <Content Include="Views\HenkiloidenProjektit\Index.cshtml" />
+    <Content Include="Views\ProjektienHenkilot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

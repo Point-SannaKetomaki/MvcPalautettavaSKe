@@ -27,10 +27,10 @@
             <PropertyRef Name="TuntiId" />
           </Key>
           <Property Name="TuntiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjektiId" Type="int" />
-          <Property Name="HenkiloId" Type="int" />
-          <Property Name="Päivämäärä" Type="datetime" />
-          <Property Name="Tunnit" Type="numeric" Precision="15" Scale="7" />
+          <Property Name="ProjektiId" Type="int" Nullable="false" />
+          <Property Name="HenkiloId" Type="int" Nullable="false" />
+          <Property Name="Päivämäärä" Type="datetime" Nullable="false" />
+          <Property Name="Tunnit" Type="numeric" Precision="15" Scale="7" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ProjektitModelStoreContainer">
           <EntitySet Name="Projektihenkilot" EntityType="Self.Projektihenkilot" Schema="dbo" store:Type="Tables" />
@@ -64,12 +64,12 @@
             <PropertyRef Name="TuntiId" />
           </Key>
           <Property Name="TuntiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjektiId" Type="Int32" />
-          <Property Name="HenkiloId" Type="Int32" />
-          <Property Name="Päivämäärä" Type="DateTime" Precision="3" />
-          <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" />
+          <Property Name="ProjektiId" Type="Int32" Nullable="false" />
+          <Property Name="HenkiloId" Type="Int32" Nullable="false" />
+          <Property Name="Päivämäärä" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ProjektitEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Projektit2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Projektihenkilot" EntityType="Self.Projektihenkilot" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" />
@@ -79,7 +79,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjektitModelStoreContainer" CdmEntityContainer="ProjektitEntities">
+        <EntityContainerMapping StorageEntityContainer="ProjektitModelStoreContainer" CdmEntityContainer="Projektit2Entities">
           <EntitySetMapping Name="Projektihenkilot">
             <EntityTypeMapping TypeName="ProjektitModel.Projektihenkilot">
               <MappingFragment StoreEntitySet="Projektihenkilot">

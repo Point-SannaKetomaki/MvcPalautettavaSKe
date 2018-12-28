@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MvcPalautettavaSKe.Models.Projektihenkilot>
+
+@{
+    ViewBag.Title = "Projektihenkilöiden projektit";
+}
+
+@section scripts{
+    <script>
+        //tämä funktio suoritetaan, kun sivu on lataantunut kokonaan
+        $(function () {
+            $(".displayProjectDataLink").click(function () {
+                //selvitetään, minkä rivin plus-ikonia on painettu (data-attribuutti)
+                var henkiloID = $(this).data("henkiloid");
+
+                //alert("Klikattiin: " + henkiloID);
+
+                //muodostetaan Ajax-kutsu, joka lähetetään Controllerille tietojen hakemista varten tietokannasta
+                var url = "GetProjectData/" + henkiloID;
+                $.getJSON(url, null, function (data) {
+
+                    var id = "#HoursDetailRow-" + henkiloID;
+                    $(id).html(data.html);
+                    $(id).css("display", "block");
+
+                });
+
+                return false;
+
+            });
+        });
+        
+    </script>}
+
+
+<h2>Projektihenkilöiden projektit</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Henkilö-ID</th>
+            <th>Etunimi</th>
+            <th>Sukunimi</th>
+            <th>Osoite</th>
+            <th>Esimies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MvcPalautettavaSKe.Models.Projektihenkilot henkilo in Model)
+        {
+            <tr>
+                <td><a href="#" class="displayProjectDataLink" data-henkiloid="@henkilo.HenkiloId"><span class="glyphicon glyphicon-plus-sign"></span></a>@henkilo.HenkiloId</td>
+                <td>@henkilo.Etunimi</td>
+                <td>@henkilo.Sukunimi</td>
+                <td>@henkilo.Osoite</td>
+                <td>@henkilo.Esimies</td>
+            </tr>
+            <tr id="HoursDetailRow-@henkilo.HenkiloId" style="display:none;">
+            </tr>
+        }
+    </tbody>
+</table>
+

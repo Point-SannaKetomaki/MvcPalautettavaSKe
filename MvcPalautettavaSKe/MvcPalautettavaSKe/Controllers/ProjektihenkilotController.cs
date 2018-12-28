@@ -19,7 +19,7 @@ namespace MvcPalautettavaSKe.Controllers
         public JsonResult GetList()
         {
             //Luo uuden entiteettiolion 
-            ProjektitEntities entities = new ProjektitEntities();
+            Projektit2Entities entities = new Projektit2Entities();
 
             //Haetaan Projektihenkilot -taulusta kaikki data
             var henkilot = (from h in entities.Projektihenkilot
@@ -42,7 +42,7 @@ namespace MvcPalautettavaSKe.Controllers
             //Haetaan tietokannasta "klikatun" henkilön tiedot
 
             //Luo uuden entiteettiolion 
-            ProjektitEntities entities = new ProjektitEntities();
+            Projektit2Entities entities = new Projektit2Entities();
 
             int ID = int.Parse(id);
 
@@ -74,7 +74,7 @@ namespace MvcPalautettavaSKe.Controllers
             if (person.Etunimi != null && person.Sukunimi != null && person.Osoite != null && person.Esimies != null)
             {
                 //luodaan uusi entiteettiolio
-                ProjektitEntities entities = new ProjektitEntities();
+                Projektit2Entities entities = new Projektit2Entities();
 
                 int id = person.HenkiloId;
 
@@ -128,7 +128,7 @@ namespace MvcPalautettavaSKe.Controllers
 
         public ActionResult Delete(string id)
         {
-            ProjektitEntities entities = new ProjektitEntities();
+            Projektit2Entities entities = new Projektit2Entities();
             
             //tallennuksen onnistuminen
             bool OK = false;

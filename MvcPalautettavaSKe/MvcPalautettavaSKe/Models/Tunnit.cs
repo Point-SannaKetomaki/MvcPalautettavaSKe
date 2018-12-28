@@ -15,9 +15,9 @@ namespace MvcPalautettavaSKe.Models
     public partial class Tunnit
     {
         public int TuntiId { get; set; }
-        public Nullable<int> ProjektiId { get; set; }
-        public Nullable<int> HenkiloId { get; set; }
-        public Nullable<System.DateTime> Päivämäärä { get; set; }
-        public Nullable<decimal> Tunnit1 { get; set; }
+        public int ProjektiId { get; set; }
+        public int HenkiloId { get; set; }
+        public System.DateTime Päivämäärä { get; set; }
+        public decimal Tunnit1 { get; set; }
     }
 }
