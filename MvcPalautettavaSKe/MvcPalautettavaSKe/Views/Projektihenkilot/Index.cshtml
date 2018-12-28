@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        function päivitäProjektihenkilötLista() {
+
+            //tuo projektihenkilöiden tiedot palvelimelta
+            $.getJSON("/Projektihenkilot/GetList", null, function (json) {
+                var henkilot = JSON.parse(json)
+
+
+                //luodaan html-taulukon runko
+                var html = "";
+                for (var i = 0; i < henkilot.length; i++) {
+                    html += "<tr>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                        "<td>" + henkilot[i].HenkiloId + "</td>" +
+                        "<td>" + henkilot[i].Etunimi + "</td>" +
+                        "<td>" + henkilot[i].Sukunimi + "</td>" +
+                        "<td>" + henkilot[i].Osoite + "</td>" +
+                        "<td>" + henkilot[i].Esimies + "</td>" +
+                        "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>"+
+                    "</tr>\r\n"
+                }
+
+
+
+                //"täytetään" taulukko
+                $("#ProjektihenkilötLista tbody").html(html);
+
+                //tietojen muokkaus
+                $(".glyphicon-pencil").click(function () {
+                    //etsitään asikkaan tiedot klikatulta riviltä
+                    var henkiloID = $(this).parent().parent().next().text();
+                    //alert(henkiloID);
+
+                    //haetaan asiakkaan tiedot id:n perusteella
+                    $.getJSON("/Projektihenkilot/GetSinglePerson/" + henkiloID, null, function (json2) {
+                        var henkilo = JSON.parse(json2);
+
+                        //tietojen lataus modaali-ikkunaan
+                        $("#personModal_HenkiloId").val(henkilo.HenkiloId)
+                        $("#personModal_Etunimi").val(henkilo.Etunimi)
+                        $("#personModal_Sukunimi").val(henkilo.Sukunimi)
+                        $("#personModal_Osoite").val(henkilo.Osoite)
+                        $("#personModal_Esimies").val(henkilo.Esimies)
+
+                        //näytetään modaali-ikkuna
+                        $("#personModalTitle").text("Muokkaa tietoja");
+                        $("#personModalDialog").modal("show");
+                    });
+                });
+
+                //tietojen poisto
+                $(".glyphicon-trash").click(function () {
+
+                    //haetaan klikatun rivin henkilön ID
+                    var henkiloID = $(this).parent().parent().prev().prev().prev().prev().prev().text();
+                    //alert("Poistoa klikattu, henkilö: " + henkiloID);
+                    var ok = confirm("Haluatko varmasti poistaa henkilön " + henkiloID + "?");
+
+                    if (ok == true) {
+                        $.getJSON("/Projektihenkilot/Delete/" + henkiloID, null, function (status) {
+                            if (status == true) {
+                                alert("Henkilön tiedot on nyt poistettu!");
+                                päivitäProjektihenkilötLista();
+                            }
+                            else {
+                                alert("Poisto ei onnistunut. Yritä uudelleen!");
+                            }
+                        });
+                    }
+                });
+
+            });
+        }
+
+        //sivun alustus
+        $(function () {
+            päivitäProjektihenkilötLista();
+
+            $("#addNewPerson").click(function () {
+                //tyhjennetään ikkunan tiedot
+                $("#personModal_HenkiloId").val("(uusi)");
+                $("#personModal_Etunimi").val("");
+                $("#personModal_Sukunimi").val("");
+                $("#personModal_Osoite").val("");
+                $("#personModal_Esimies").val("");
+
+                //näytetään tyhjä modaali-ikkuna
+                $("#personModalTitle").text("Lisää uusi henkilö");
+                $("#personModalDialog").modal("show");
+            }); 
+
+            //Painetaan Tallenna-nappia =>luetaan käyttäjän antamat tiedot modaali-ikkunasta
+            $("#personModalSaveButton").click(function () {
+                var details = {
+                    HenkiloId: $("#personModal_HenkiloId").val(),
+                    Etunimi: $("#personModal_Etunimi").val(),
+                    Sukunimi: $("#personModal_Sukunimi").val(),
+                    Osoite: $("#personModal_Osoite").val(),
+                    Esimies: $("#personModal_Esimies").val()
+
+                };
+
+                $.post("/Projektihenkilot/Update/", details, function (status) {
+                    if (status == true) {
+                        alert("Uudet tiedot on päivitetty!");
+                        $("#personModalDialog").modal("hide");
+                        päivitäProjektihenkilötLista();
+                    }
+                    else {
+
+                        alert("Tallennus ei onnistunut. Yritä uudelleen!");
+                    }
+                });
+
+            });
+
+        });
+
+    </script>}
+
+
+
+<h2>Projektihenkilöt</h2>
+
+<button class="btn btn-primary" id="addNewPerson">Lisää uusi henkilö</button>
+
+
+<table class="table table-striped" id="ProjektihenkilötLista">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Henkilö-Id</th>
+            <th>Etunimi</th>
+            <th>Sukunimi</th>
+            <th>Osoite</th>
+            <th>Esimies</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<!--Modaali-ikkuna/-->
+<div class="modal fade" tabindex="-1" role="dialog" id="personModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="personModalTitle">Muokkaa tietoja</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">Henkilö-Id</div>
+                    <div class="col-md-6"><input class="form-control" id="personModal_HenkiloId" type="text" readonly></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Etunimi</div>
+                    <div class="col-md-6"><input class="form-control" id="personModal_Etunimi" type="text"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Sukunimi</div>
+                    <div class="col-md-6"><input class="form-control" id="personModal_Sukunimi" type="text"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Osoite</div>
+                    <div class="col-md-6"><input class="form-control" id="personModal_Osoite" type="text"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Esimies</div>
+                    <div class="col-md-6"><input class="form-control" id="personModal_Esimies" type="text"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="personModalSaveButton">Tallenna</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
