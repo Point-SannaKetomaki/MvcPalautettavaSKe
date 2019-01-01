@@ -25,11 +25,11 @@ namespace MvcPalautettavaSKe.Controllers
             var henkilot = (from h in entities.Projektihenkilot
                             select h).ToList();
 
-            //Muutetaan olio json -muotoon toimitettavaksi selaimelle. Suljetaan tietokantayhteys.
+            //Muutetaan data json -muotoon toimitettavaksi selaimelle. Suljetaan tietokantayhteys.
             string json = JsonConvert.SerializeObject(henkilot);
             entities.Dispose();
 
-            //IE-selainta varten ohitetaan välimuisti, jotta näyttö päivittyy
+            //ohitetaan välimuisti, jotta näyttö päivittyy (IE-selainta varten) 
             Response.Expires = -1;
             Response.CacheControl = "no-cache";
 
@@ -109,7 +109,7 @@ namespace MvcPalautettavaSKe.Controllers
                         dbItem.Osoite = person.Osoite;
                         dbItem.Esimies = person.Esimies;
 
-                        //tallennetaan tiedot tietokantaan
+                        //tallennetaan uudet tiedot tietokantaan
                         entities.SaveChanges();
                         OK = true;
                     }

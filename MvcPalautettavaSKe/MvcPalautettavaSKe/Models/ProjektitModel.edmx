@@ -20,7 +20,7 @@
             <PropertyRef Name="ProjektiId" />
           </Key>
           <Property Name="ProjektiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nimi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Nimi" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Tunnit">
           <Key>
@@ -56,7 +56,7 @@
             <PropertyRef Name="ProjektiId" />
           </Key>
           <Property Name="ProjektiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tunnit">
           <Key>

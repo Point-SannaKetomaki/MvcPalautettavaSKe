@@ -12,7 +12,7 @@
             $.getJSON("/Projektihenkilot/GetList", null, function (json) {
                 var henkilot = JSON.parse(json)
 
-                //luodaan html-taulukon runko
+                //luodaan html-taulukon sisältörunko
                 var html = "";
                 for (var i = 0; i < henkilot.length; i++) {
                     html += "<tr>" +
@@ -134,7 +134,7 @@
 
 <button class="btn btn-primary" id="addNewPerson">Lisää uusi henkilö</button>
 
-<!--Taulukon runko-->
+<!--Taulukon runko ja otsikot-->
 <table class="table table-striped" id="ProjektihenkilötLista">
     <thead>
         <tr>

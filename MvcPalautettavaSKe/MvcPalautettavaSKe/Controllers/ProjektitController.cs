@@ -25,12 +25,12 @@ namespace MvcPalautettavaSKe.Controllers
             var projektit = (from p in entities.Projektit
                              select p).ToList();
 
-            //muutetaan olio json-muotoon toimitettavaksi selaimelle
+            //muutetaan data json-muotoon toimitettavaksi selaimelle
             //ja suljetaan tietokantayhteys.
             string json = JsonConvert.SerializeObject(projektit);
             entities.Dispose();
 
-            //IE-selainta varten ohitetaan välimuisti, jotta näyttö päivittyy
+            //ohitetaan välimuisti, jotta näyttö päivittyy (IE-selainta varten)
             Response.Expires = -1;
             Response.CacheControl = "no-cache";
 
@@ -101,7 +101,7 @@ namespace MvcPalautettavaSKe.Controllers
                     {
                         dbItem.Nimi = project.Nimi;
 
-                        //tallennetaan tiedot tietokantaa
+                        //tallennetaan uudet tiedot tietokantaa
                         entities.SaveChanges();
                         OK = true;
                     }
