@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projektihenkilöt";
 }
 
 @section scripts{
@@ -8,10 +8,9 @@
 
         function päivitäProjektihenkilötLista() {
 
-            //tuo projektihenkilöiden tiedot palvelimelta
+            //tuo projektihenkilöiden tiedot kontrollerilta
             $.getJSON("/Projektihenkilot/GetList", null, function (json) {
                 var henkilot = JSON.parse(json)
-
 
                 //luodaan html-taulukon runko
                 var html = "";
@@ -27,18 +26,17 @@
                     "</tr>\r\n"
                 }
 
-
-
                 //"täytetään" taulukko
                 $("#ProjektihenkilötLista tbody").html(html);
 
                 //tietojen muokkaus
                 $(".glyphicon-pencil").click(function () {
-                    //etsitään asikkaan tiedot klikatulta riviltä
+                    //etsitään asiakkaan tiedot klikatulta riviltä
                     var henkiloID = $(this).parent().parent().next().text();
+
                     //alert(henkiloID);
 
-                    //haetaan asiakkaan tiedot id:n perusteella
+                    //haetaan asiakkaan tiedot kontrollerilta id:n perusteella
                     $.getJSON("/Projektihenkilot/GetSinglePerson/" + henkiloID, null, function (json2) {
                         var henkilo = JSON.parse(json2);
 
@@ -60,7 +58,9 @@
 
                     //haetaan klikatun rivin henkilön ID
                     var henkiloID = $(this).parent().parent().prev().prev().prev().prev().prev().text();
+
                     //alert("Poistoa klikattu, henkilö: " + henkiloID);
+
                     var ok = confirm("Haluatko varmasti poistaa henkilön " + henkiloID + "?");
 
                     if (ok == true) {
@@ -84,6 +84,7 @@
             päivitäProjektihenkilötLista();
 
             $("#addNewPerson").click(function () {
+
                 //tyhjennetään ikkunan tiedot
                 $("#personModal_HenkiloId").val("(uusi)");
                 $("#personModal_Etunimi").val("");
@@ -107,6 +108,7 @@
 
                 };
 
+                //Lähettää tiedot kontrollerille, antaa käyttäjälle viestin päivityksen onnistumisesta, piilottaa modaali-ikkunan
                 $.post("/Projektihenkilot/Update/", details, function (status) {
                     if (status == true) {
                         alert("Uudet tiedot on päivitetty!");
@@ -123,7 +125,8 @@
 
         });
 
-    </script>}
+    </script>
+    }
 
 
 
@@ -131,7 +134,7 @@
 
 <button class="btn btn-primary" id="addNewPerson">Lisää uusi henkilö</button>
 
-
+<!--Taulukon runko-->
 <table class="table table-striped" id="ProjektihenkilötLista">
     <thead>
         <tr>

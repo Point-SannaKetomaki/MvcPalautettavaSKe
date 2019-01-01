@@ -18,7 +18,7 @@ namespace MvcPalautettavaSKe.Controllers
 
         public JsonResult GetList()
         {
-            //Luo uuden entiteettiolion 
+            //Luodaan uusi entiteettiolio 
             Projektit2Entities entities = new Projektit2Entities();
 
             //Haetaan Projektihenkilot -taulusta kaikki data
@@ -41,9 +41,10 @@ namespace MvcPalautettavaSKe.Controllers
         {
             //Haetaan tietokannasta "klikatun" henkilön tiedot
 
-            //Luo uuden entiteettiolion 
+            //Luodaan uusi entiteettiolio
             Projektit2Entities entities = new Projektit2Entities();
 
+            //Muutetaan modaali-ikkunasta tullut string-tyyppinen henkilö-id int-tyyppiseksi
             int ID = int.Parse(id);
 
             //Haetaan Projektihenkilot -taulusta tiedot henkilö-Id:n perusteella
@@ -55,32 +56,30 @@ namespace MvcPalautettavaSKe.Controllers
             string json = JsonConvert.SerializeObject(henkilo);
             entities.Dispose();
 
-            //IE - selainta varten ohitetaan välimuisti, jotta näyttö päivittyy
-            //Response.Expires = -1;
-            //Response.CacheControl = "no-cache";
-
             //Lähetetään data selaimelle
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Update(Projektihenkilot person)
         {
+            //TIETOJEN PÄIVITYS JA UUDEN HENKILÖN LISÄYS
+
             //onnistuuko tallennus tietokantaan vai ei?
             bool OK = false;
 
             //Tietokantaan tallennetaan uusia tietoja vain mikäli, 
-            //Etunimi- , Sukunimi- ja Osoite -kentät eivät ole tyhjiä ja 
-            //Esimies -kenttä sisältää int-tyyppisen arvon
+            //Etunimi- , Sukunimi- ja Osoite -kentät eivät ole tyhjiä
+            //ja Esimies -kenttä sisältää int-tyyppisen arvon
             if (person.Etunimi != null && person.Sukunimi != null && person.Osoite != null && person.Esimies != null)
             {
                 //luodaan uusi entiteettiolio
                 Projektit2Entities entities = new Projektit2Entities();
 
                 int id = person.HenkiloId;
-
+            
                 if (id == 0)
                 {
-                    // uuden henkilön lisääminen
+                    // uuden henkilön lisääminen dbItem-nimisen olion avulla
                     Projektihenkilot dbItem = new Projektihenkilot()
                     {
                         Etunimi = person.Etunimi,
@@ -89,14 +88,15 @@ namespace MvcPalautettavaSKe.Controllers
                         Esimies = person.Esimies
                     };
 
-                    //lisätään dbItem-olioon ja tallennetaan muutokset tietokantaan
+                    //lisätään dbItem-olion tiedot ja tallennetaan muutokset tietokantaan
                     entities.Projektihenkilot.Add(dbItem);
                     entities.SaveChanges();
                     OK = true;
                 }
                 else
                 {
-                    //muokataan tietoja, haetaan olemassaolevat tiedot tietokannasta
+                    //muokataan olemassaolevia tietoja 
+                    //haetaan olemassaolevat tiedot tietokannasta
                     Projektihenkilot dbItem = (from h in entities.Projektihenkilot
                                                where h.HenkiloId == id
                                                select h).FirstOrDefault();
@@ -108,8 +108,6 @@ namespace MvcPalautettavaSKe.Controllers
                         dbItem.Sukunimi = person.Sukunimi;
                         dbItem.Osoite = person.Osoite;
                         dbItem.Esimies = person.Esimies;
-
-
 
                         //tallennetaan tiedot tietokantaan
                         entities.SaveChanges();
@@ -123,36 +121,40 @@ namespace MvcPalautettavaSKe.Controllers
 
             //palautetaan tallennuskuittaus selaimelle (muuttuja OK)
             return Json(OK, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult Delete(string id)
         {
+            //luodaan uusi entiteettiolio
             Projektit2Entities entities = new Projektit2Entities();
             
             //tallennuksen onnistuminen
             bool OK = false;
 
+            //Muutetaan selaimelta tullut string-tyyppinen henkilö-id (id) int-tyyppiseksi
             int intID = int.Parse(id);
 
-            //etsitään poistettavan henkilön tiedot dbItem-olioon ID:n perusteella
+            //haetaan poistettavan henkilön tiedot dbItem-olioon ID:n perusteella
             Projektihenkilot dbItem = (from h in entities.Projektihenkilot
                                        where h.HenkiloId == intID
                                        select h).FirstOrDefault();
 
+            //jos tiedot löytyy
             if (dbItem != null)
             {
                 //poistetaan tiedot entiteettimallista
                 entities.Projektihenkilot.Remove(dbItem);
 
-                //poistetaan tietokannasta ja tallennetaan tiedot
+                //tallennetaan muutokset tietokantaan
                 entities.SaveChanges();
                 OK = true;
             }
+
+            //suljetaan tietokantayhteys
             entities.Dispose();
 
+            //palautetaan tallennuskuittaus selaimelle
             return Json(OK, JsonRequestBehavior.AllowGet);
         }
-
     }
 }
