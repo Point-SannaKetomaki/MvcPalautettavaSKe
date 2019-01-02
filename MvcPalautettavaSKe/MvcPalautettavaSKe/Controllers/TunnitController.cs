@@ -109,8 +109,9 @@ namespace MvcPalautettavaSKe.Controllers
 
                     catch
                     {
-                        //poikkeusta ei käsitellä, mutta ohjelma ei kaadu.
+                        //Poikkeusta ei käsitellä, mutta ohjelma ei kaadu.
                         //ok jää arvoon false eikä tietoja tallenneta tietokantaan.
+                        //Käyttäjä saa virheilmoituksen, ettei tietoja tallennettu.
                     }
                 }
                 else
