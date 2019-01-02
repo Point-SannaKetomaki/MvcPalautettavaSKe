@@ -10,10 +10,10 @@
             <PropertyRef Name="HenkiloId" />
           </Key>
           <Property Name="HenkiloId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Etunimi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Osoite" Type="nvarchar" MaxLength="100" />
-          <Property Name="Esimies" Type="int" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Osoite" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Esimies" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Projektit">
           <Key>
@@ -46,10 +46,10 @@
             <PropertyRef Name="HenkiloId" />
           </Key>
           <Property Name="HenkiloId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Osoite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Esimies" Type="Int32" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Osoite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Esimies" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Projektit">
           <Key>
@@ -65,7 +65,7 @@
           <Property Name="TuntiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjektiId" Type="Int32" Nullable="false" />
           <Property Name="HenkiloId" Type="Int32" Nullable="false" />
-          <Property Name="Päivämäärä" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Päivämäärä" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Projektit2Entities" annotation:LazyLoadingEnabled="true">

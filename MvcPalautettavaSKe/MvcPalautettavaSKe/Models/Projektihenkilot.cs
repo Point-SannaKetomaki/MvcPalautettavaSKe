@@ -18,6 +18,6 @@ namespace MvcPalautettavaSKe.Models
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
         public string Osoite { get; set; }
-        public Nullable<int> Esimies { get; set; }
+        public int Esimies { get; set; }
     }
 }

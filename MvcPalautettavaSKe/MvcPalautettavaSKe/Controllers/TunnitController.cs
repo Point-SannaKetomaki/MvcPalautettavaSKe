@@ -75,23 +75,43 @@ namespace MvcPalautettavaSKe.Controllers
                 //Luodaan uusi entiteettiolio
                 Projektit2Entities entities = new Projektit2Entities();
 
-                int id = hour.TuntiId;
+                int hourId = hour.TuntiId;
 
-                if (id == 0)
+                if (hourId == 0)
                 {
-                    //uuden tiedon lisääminen tietokantaan dbItem-olion avulla
-                    Tunnit dbItem = new Tunnit()
-                    {
-                        ProjektiId = hour.ProjektiId,
-                        HenkiloId = hour.HenkiloId,
-                        Päivämäärä = hour.Päivämäärä,
-                        Tunnit1 = hour.Tunnit1
-                    };
+                    int projId = hour.ProjektiId;
+                    int personId = hour.HenkiloId;
 
-                    //lisätään dbItem-olion tiedot ja tallennetaan muutokset tietokantaan
-                    entities.Tunnit.Add(dbItem);
-                    entities.SaveChanges();
-                    ok = true;
+                    try
+                    {
+                        var projekti = (from p in entities.Projektit
+                                        where p.ProjektiId == projId
+                                        select p).First();
+
+                        var henkilo = (from h in entities.Projektihenkilot
+                                       where h.HenkiloId == personId
+                                       select h).First();
+
+                        //uuden tiedon lisääminen tietokantaan dbItem-olion avulla
+                        Tunnit dbItem = new Tunnit()
+                        {
+                            ProjektiId = hour.ProjektiId,
+                            HenkiloId = hour.HenkiloId,
+                            Päivämäärä = hour.Päivämäärä,
+                            Tunnit1 = hour.Tunnit1
+                        };
+
+                        //lisätään dbItem-olion tiedot ja tallennetaan muutokset tietokantaan
+                        entities.Tunnit.Add(dbItem);
+                        entities.SaveChanges();
+                        ok = true;
+                    }
+
+                    catch
+                    {
+                        //poikkeusta ei käsitellä, mutta ohjelma ei kaadu.
+                        //ok jää arvoon false eikä tietoja tallenneta tietokantaan.
+                    }
                 }
                 else
                 {
@@ -99,7 +119,7 @@ namespace MvcPalautettavaSKe.Controllers
 
                     //haetaan olemassaolevat tiedot tietokannasta
                     Tunnit dbItem = (from t in entities.Tunnit
-                                     where t.TuntiId == id
+                                     where t.TuntiId == hourId
                                      select t).FirstOrDefault();
 
                     //tallennetaan modaali-ikkunasta tulevat tiedot dbItem-olioon
