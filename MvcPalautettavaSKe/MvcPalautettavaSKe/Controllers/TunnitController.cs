@@ -70,7 +70,10 @@ namespace MvcPalautettavaSKe.Controllers
             //Tietokantaan tallennetaan tietoja vain, mikäli
             //Projekti-Id ja Henkilö-Id ovat int-tyyppisiä
             //Päivämäärä ja Tunnit -kentät eivät ole tyhjiä
-            if (hour.ProjektiId != null && hour.HenkiloId != null && hour.Päivämäärä != null && hour.Tunnit1 != null)
+            if (hour.ProjektiId > 0 && 
+                hour.HenkiloId > 0 && 
+                hour.Päivämäärä != null && 
+                hour.Tunnit1 > 0)
             {
                 //Luodaan uusi entiteettiolio
                 Projektit2Entities entities = new Projektit2Entities();

@@ -70,7 +70,10 @@ namespace MvcPalautettavaSKe.Controllers
             //Tietokantaan tallennetaan uusia tietoja vain mikäli, 
             //Etunimi- , Sukunimi- ja Osoite -kentät eivät ole tyhjiä
             //ja Esimies -kenttä sisältää int-tyyppisen arvon
-            if (person.Etunimi != null && person.Sukunimi != null && person.Osoite != null && person.Esimies != null)
+            if (!string.IsNullOrWhiteSpace(person.Etunimi) && 
+                !string.IsNullOrWhiteSpace(person.Sukunimi) && 
+                !string.IsNullOrWhiteSpace(person.Osoite) && 
+                person.Esimies > 0)
             {
                 //luodaan uusi entiteettiolio
                 Projektit2Entities entities = new Projektit2Entities();
