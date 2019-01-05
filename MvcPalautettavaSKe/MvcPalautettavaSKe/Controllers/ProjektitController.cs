@@ -68,7 +68,7 @@ namespace MvcPalautettavaSKe.Controllers
 
             //Uuden projektin lisääminen
             //Uusia tietoja lisätään vain, mikäli Nimi-kenttä ei ole tyhjä
-            if (project.Nimi != null)
+            if (!string.IsNullOrWhiteSpace(project.Nimi))
             {
                 //luodaan uusi entiteettiolio
                 Projektit2Entities entities = new Projektit2Entities();

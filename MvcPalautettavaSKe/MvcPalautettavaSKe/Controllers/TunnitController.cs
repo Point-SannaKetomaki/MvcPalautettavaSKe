@@ -82,11 +82,14 @@ namespace MvcPalautettavaSKe.Controllers
 
                 if (hourId == 0)
                 {
+                    //uusien tietojan lisääminen
+
                     int projId = hour.ProjektiId;
                     int personId = hour.HenkiloId;
 
                     try
                     {
+                        //tarkistetaan, että käyttäjän syöttämä projekti-id ja henkilö-id ovat olemassa ao. tietokantatauluista
                         var projekti = (from p in entities.Projektit
                                         where p.ProjektiId == projId
                                         select p).First();
