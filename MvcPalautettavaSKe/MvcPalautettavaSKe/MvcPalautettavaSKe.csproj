@@ -197,6 +197,7 @@
     <Content Include="Models\ProjektitModel.edmx.diagram">
       <DependentUpon>ProjektitModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\ProjektitAppSKe - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

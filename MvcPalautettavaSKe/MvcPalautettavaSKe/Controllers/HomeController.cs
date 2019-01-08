@@ -15,7 +15,7 @@ namespace MvcPalautettavaSKe.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Tietoja sovelluksesta";
 
             return View();
         }
