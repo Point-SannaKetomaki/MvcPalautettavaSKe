@@ -25,8 +25,16 @@
                 });
 
                 return false;
-
             });
+
+            //piilotetaan henkilöiden projektitiedot
+            $(".hideProjectDataLink").click(function () {
+                var henkiloID = $(this).data("henkiloid")
+
+                $("#HoursDetailRow-" + henkiloID).hide();
+            });
+
+            return false;
         });
         
     </script>}
@@ -49,7 +57,8 @@
         @foreach (MvcPalautettavaSKe.Models.Projektihenkilot henkilo in Model)
         {
             <tr>
-                <td><a href="#" class="displayProjectDataLink" data-henkiloid="@henkilo.HenkiloId"><span class="glyphicon glyphicon-plus-sign"></span></a>@henkilo.HenkiloId</td>
+                <td><a href="#" class="displayProjectDataLink" data-henkiloid="@henkilo.HenkiloId"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                <a href="#" class="hideProjectDataLink" data-henkiloid="@henkilo.HenkiloId"><span class="glyphicon glyphicon-minus-sign"></span></a>@henkilo.HenkiloId</td>
                 <td>@henkilo.Etunimi</td>
                 <td>@henkilo.Sukunimi</td>
                 <td>@henkilo.Osoite</td>

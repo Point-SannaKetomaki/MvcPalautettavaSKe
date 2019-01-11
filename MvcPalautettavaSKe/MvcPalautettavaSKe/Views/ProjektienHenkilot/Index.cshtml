@@ -22,6 +22,14 @@
 
                 return false;
             });
+
+            $(".hidePersonHourDataLink").click(function () {
+                var projID = $(this).data("projektiid")
+
+                $("#PersonDetailRow-" + projID).hide();
+            });
+
+            return false;
         });
         
     </script>
@@ -41,7 +49,8 @@
         @foreach (MvcPalautettavaSKe.Models.Projektit projekti in Model)
         {
             <tr>
-                <td><a href="#" class="displayPersonHourDataLink" data-projektiid="@projekti.ProjektiId"><span class="glyphicon glyphicon-plus-sign"></span></a>@projekti.ProjektiId</td>
+                <td><a href="#" class="displayPersonHourDataLink" data-projektiid="@projekti.ProjektiId"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                <a href="#" class="hidePersonHourDataLink" data-projektiid="@projekti.ProjektiId"><span class="glyphicon glyphicon-minus-sign"></span></a>@projekti.ProjektiId</td>
                 <td>@projekti.Nimi</td>
             </tr>
             <tr id="PersonDetailRow-@projekti.ProjektiId" style="display:none">
