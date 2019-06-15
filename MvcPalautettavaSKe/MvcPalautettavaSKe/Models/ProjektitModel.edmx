@@ -33,22 +33,27 @@
           <Property Name="Tunnit" Type="numeric" Precision="15" Scale="7" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ProjektitModelStoreContainer">
-          <EntitySet Name="Projektihenkilot" EntityType="Self.Projektihenkilot" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Projektit" EntityType="Self.Projektit" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tunnit" EntityType="Self.Tunnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projektihenkilot" EntityType="Self.Projektihenkilot" Schema="web" store:Type="Tables" />
+          <EntitySet Name="Projektit" EntityType="Self.Projektit" Schema="web" store:Type="Tables" />
+          <EntitySet Name="Tunnit" EntityType="Self.Tunnit" Schema="web" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjektitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Projektit2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projektihenkilot" EntityType="ProjektitModel.Projektihenkilot" />
+          <EntitySet Name="Projektit" EntityType="ProjektitModel.Projektit" />
+          <EntitySet Name="Tunnit" EntityType="ProjektitModel.Tunnit" />
+        </EntityContainer>
         <EntityType Name="Projektihenkilot">
           <Key>
             <PropertyRef Name="HenkiloId" />
           </Key>
           <Property Name="HenkiloId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Osoite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Etunimi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Osoite" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Esimies" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Projektit">
@@ -56,7 +61,7 @@
             <PropertyRef Name="ProjektiId" />
           </Key>
           <Property Name="ProjektiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nimi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tunnit">
           <Key>
@@ -65,14 +70,9 @@
           <Property Name="TuntiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjektiId" Type="Int32" Nullable="false" />
           <Property Name="HenkiloId" Type="Int32" Nullable="false" />
-          <Property Name="Päivämäärä" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="Tunnit1" Type="Decimal" Precision="15" Scale="7" Nullable="false" />
+          <Property Name="Päivämäärä" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tunnit1" Type="Decimal" Nullable="false" Precision="15" Scale="7" />
         </EntityType>
-        <EntityContainer Name="Projektit2Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Projektihenkilot" EntityType="Self.Projektihenkilot" />
-          <EntitySet Name="Projektit" EntityType="Self.Projektit" />
-          <EntitySet Name="Tunnit" EntityType="Self.Tunnit" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -82,30 +82,30 @@
           <EntitySetMapping Name="Projektihenkilot">
             <EntityTypeMapping TypeName="ProjektitModel.Projektihenkilot">
               <MappingFragment StoreEntitySet="Projektihenkilot">
-                <ScalarProperty Name="HenkiloId" ColumnName="HenkiloId" />
-                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
-                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
-                <ScalarProperty Name="Osoite" ColumnName="Osoite" />
                 <ScalarProperty Name="Esimies" ColumnName="Esimies" />
+                <ScalarProperty Name="Osoite" ColumnName="Osoite" />
+                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+                <ScalarProperty Name="HenkiloId" ColumnName="HenkiloId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projektit">
             <EntityTypeMapping TypeName="ProjektitModel.Projektit">
               <MappingFragment StoreEntitySet="Projektit">
-                <ScalarProperty Name="ProjektiId" ColumnName="ProjektiId" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="ProjektiId" ColumnName="ProjektiId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tunnit">
             <EntityTypeMapping TypeName="ProjektitModel.Tunnit">
               <MappingFragment StoreEntitySet="Tunnit">
-                <ScalarProperty Name="TuntiId" ColumnName="TuntiId" />
-                <ScalarProperty Name="ProjektiId" ColumnName="ProjektiId" />
-                <ScalarProperty Name="HenkiloId" ColumnName="HenkiloId" />
-                <ScalarProperty Name="Päivämäärä" ColumnName="Päivämäärä" />
                 <ScalarProperty Name="Tunnit1" ColumnName="Tunnit" />
+                <ScalarProperty Name="Päivämäärä" ColumnName="Päivämäärä" />
+                <ScalarProperty Name="HenkiloId" ColumnName="HenkiloId" />
+                <ScalarProperty Name="ProjektiId" ColumnName="ProjektiId" />
+                <ScalarProperty Name="TuntiId" ColumnName="TuntiId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

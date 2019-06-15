@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="da2f1135c81d47c8bb9902c1526c340b" Name="Diagram1">
-        <EntityTypeShape EntityType="ProjektitModel.Projektihenkilot" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjektitModel.Projektit" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjektitModel.Tunnit" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjektitModel.Projektihenkilot" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjektitModel.Projektit" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjektitModel.Tunnit" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
